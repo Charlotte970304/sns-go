@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 )
 
@@ -14,6 +15,13 @@ func healthHandler(w http.ResponseWriter, r *http.Request) {
 func main() {
     mux := http.NewServeMux()
     mux.HandleFunc("/health", healthHandler)
-    http.ListenAndServe(":8080", mux)
+
+    log.Println("starting http server on :8080")
+
+    err := http.ListenAndServe(":8080", mux)
+    if err != nil {
+        log.Fatal(err)
+    }
 }
+
 
